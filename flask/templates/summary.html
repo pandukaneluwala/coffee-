@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body %}
+<h2>Daily Summary — {{ date }}</h2>
+<table>
+  <tr><th>Session</th><th>Drink</th><th>Total cups</th></tr>
+  {% for r in grouped %}
+  <tr>
+    <td>{{ r["session"] }}</td>
+    <td>{{ r["drink"] }}</td>
+    <td>{{ r["total"] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h3>Per person</h3>
+<table>
+  <tr><th>Name</th><th>Drink</th><th>Session</th><th>Total cups</th></tr>
+  {% for r in per_person %}
+  <tr>
+    <td>{{ r["name"] }}</td>
+    <td>{{ r["drink"] }}</td>
+    <td>{{ r["session"] }}</td>
+    <td>{{ r["total"] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h3>Grand total: {{ total_today }}</h3>
+<p><a href="{{ url_for('export_csv') }}?key={{ request.args.get('key','') }}">Download CSV</a></p>
+{% endblock %}
